@@ -1,0 +1,68 @@
+\begin{filecontents*}{cv.bib}
+@online{thatlinkaboutme,
+  author = "Leonardo da Vinci",
+  title = "Why you should hire this person",
+  day = 2,
+  month = 05,
+  year = 1519,
+  url = "https://theveryveryoldweb.uni/leos-hiring-speech"
+}
+\end{filecontents*}
+
+\documentclass{cv-cybolic}
+\date{March 1520}
+\givenname{Francesco}
+\surname{de Melzi}
+\tagline{Painter extraordinaire}
+\about{%
+  I paint real good and if you need me to collect notes into a manuscript, then you won't regret hiring me.\\
+  Also, I'm a pretty good cook.
+}
+\photo{headshot}
+\contactemail{fredemel@melzi.it}
+\contactwebsite{https://geocities.com/~fredemel}
+\contactphone{\href{tel:+39123456789}{+39 123 456 789}}
+\contactmastodon{\href{https://mastodon.art/@fredemel}{@fredemel@mastodon.art}}
+\contactaddress{Sometimes Italy, sometimes France}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Experience}
+
+  \begin{jobexperience}{1516}{Q2} {1519}{Q4} {Chateau de Cloux} {Professional Assistant} {on site} {France}
+    Helped Leonardo da Vinci with his paintings and manuscripts.\cite{thatlinkaboutme}
+    \begin{tablelist}
+      Organisation & \hl{Organised} and \hl{managed} the daily \hl{workflows} and routines \\*
+      Management & \hl{Managed} and \hl{coached} the \hl{team} of assistants \\
+    \end{tablelist}
+    \keywords{Painting, Writing, Collecting}
+  \end{jobexperience}
+
+
+  \begin{probonoexperience}{1507}{Q1} {1516}{Q2} {Leonardo da Vinci} {Convincing and working} {pro bono} {Italy}
+     Worked with Leonardo da Vinci on various projects and was the main reason he extended his stay in Milan.
+    \keywords{Literature, Painting, Writing, Learning}
+  \end{probonoexperience}
+
+
+\section{Recommendations}
+
+  \begin{citedquote}{Charles d'Amboise}{Governor of Milan}
+      Francesco is a great student and worker. You'd be a fool not to hire him!
+  \end{citedquote}
+
+
+\section{Personal Life}
+
+  When I'm not working, I enjoy painting, cooking, and reading. I also like to travel and meet new people.
+
+
+\makecontactinfo
+
+\printbibliography[title={References}]
+
+
+\end{document}

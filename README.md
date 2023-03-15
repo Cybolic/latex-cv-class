@@ -1,2 +1,3 @@
-# latex-cv-class
-A LaTeX style for my CV
+# CV-Cybolic
+
+A LaTeX class for my CV, loosely matching Europass
