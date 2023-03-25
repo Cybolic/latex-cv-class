@@ -28,8 +28,8 @@
 *.bbl
 *.bcf
 *.blg
+*.bib
 *-blx.aux
-*-blx.bib
 *.run.xml
 
 ## Build tool auxiliary files:

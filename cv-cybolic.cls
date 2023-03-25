@@ -1,3 +1,5 @@
+% !TEX TS-program = lualatex
+% !TEX encoding = UTF-8 Unicode
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{cv-cybolic}[2023/03/10 Class for my CV, loosely matching Europass]
 
@@ -21,14 +23,40 @@
 \LoadClass[10pt,a4paper,english]{article}
 
 %% Layout
+\newlength\margin
+\setlength\margin{25mm}
+%\usepackage[margin=\margin,noheadfoot,a4paper]{geometry}
+%\RequirePackage[utf8]{inputenc} % not for use with lualatex
+\RequirePackage[a4paper, portrait, margin=\margin, noheadfoot]{geometry}
+
+%% Typeface, 
 \RequirePackage[english]{babel}
-\RequirePackage[a4paper, portrait, margin=25mm]{geometry}
+\RequirePackage{csquotes}
+%\RequirePackage{nunito}
+\RequirePackage{fontspec}
+%\defaultfontfeatures{Mapping=tex-text}
+\setmainfont{Nunito}[
+  Extension = .otf ,
+  UprightFont = *-Regular ,
+  BoldFont = *-Bold ,
+  ItalicFont = *-Italic ,
+  BoldItalicFont = *-BoldItalic ,
+]
+\setmonofont{FiraMono}[
+  Scale = MatchLowercase ,
+  Extension = .otf ,
+  UprightFont = *-Regular ,
+  BoldFont = *-Bold ,
+  ItalicFont = *-Oblique ,
+  BoldItalicFont = *-BoldOblique ,
+]
+\RequirePackage{microtype} % tweak kerning, spacing and font features
 \RequirePackage{fancyhdr}
 \pagestyle{empty}
 \fancyhfoffset{0mm}
 
 %% PDF Output
-\RequirePackage[bookmarks]{hyperref}
+\RequirePackage[bookmarks,colorlinks]{hyperref}
 \RequirePackage{bookmark}
 
 \AtBeginDocument{
@@ -36,9 +64,11 @@
         pdftitle = {\@title},
         pdfauthor = {\@author},
         pdfsubject = {Curriculum Vitae},
-        linkcolor=blue,
-        filecolor=magenta,
-        urlcolor=cyan,
+        hidelinks,
+        %colorlinks  = true,            % use colored links instead of outline
+        citecolor   = {red!50!black},  % citation color
+        linkcolor   = {cyan!50!black}, % internal link color
+        urlcolor    = {blue!80!black}  % external link color
     }
 }
 
@@ -69,7 +99,7 @@
         \fi
     \fi
 }
-%\RequirePackage{xstring}
+\RequirePackage{xstring}
 \newcommand*{\givenname}[1]   {\def\@givenname{#1}\setfromname}
 \newcommand*{\surname}[1]     {\def\@surname{#1}\setfromname}
 \newcommand*{\tagline}[1]     {\def\@tagline{#1}}
@@ -86,12 +116,14 @@
 \newcommand{\website}[1]      {\par{\websiteSymbol \url{#1}}}
 \newcommand{\phone}[1]        {\par{\phoneSymbol \texttt{#1}}}
 \newcommand{\address}[1]      {\par{\locationSymbol {#1}}}
-\newcommand{\email}[1]        {\par{\emailSymbol \texttt{\href{mailto:#1?subject=Hi\%20\@givenname\%20\@surname,\%20...}{#1}}}}
+%\newcommand{\email}[1]        {\par{\emailSymbol \texttt{\href{mailto:#1?subject=\StrSubstitute[0]{Hi \@givenname \@surname}{ }{\%20}}{#1}}}}
+\newcommand{\email}[1]        {%
+  \StrSubstitute[0]{mailto:#1?subject=Hi \@givenname\%20\@surname}{ }{\%20}[\emailuri]%
+  \par{\emailSymbol \texttt{\href{\emailuri}{#1}}}%
+}
 \newcommand{\mastodon}[1]     {\par{\mastodonSymbol \texttt{#1}}}
 
-%% Typeface, Header and Title Definitions
-\RequirePackage[utf8]{inputenc}
-\RequirePackage{nunito}
+%% Header and Title Definitions
 \RequirePackage{titlesec}
 \RequirePackage{ragged2e}
 
@@ -180,10 +212,14 @@
     \phantomsection
     \noindent
     \begin{tblr}{
-        %vlines, hlines,
+        % vlines, hlines,
         leftsep = 0pt, rightsep = 0pt,
-        colspec = {Q[5em] X},
+        colspec = {Q[5em] Q X Q},
         cell{1}{1} = {r=2}{c,h},
+        cell{1}{2} = {}{l,h},
+        cell{1}{3} = {}{l,h},
+        cell{1}{4} = {}{r,h},
+        cell{2}{2} = {c=3}{l,h},
     }
         {
             \label{subsec:#1—#3: #6 \environmentrelatetext~#5}
@@ -191,11 +227,16 @@
             %\large\color{shadecolor}$\uparrow$\\%  narrow math arrow
             \large\color{gray8}\faLongArrowAltUp\\%  bold Font Awesome arrow
             \small\color{shadecolor}\textbf{#1} \footnotesize{#2}%
+        } & {\mbox{%
+            \color{shadecolor}%
+            \textbf{\textsc{#6}}~\environmentrelatetext~%
+        }} & {
+            \emph{#5} \mbox{(#7)}%
         } & {
-            \large\color{shadecolor}%
-            \textbf{\textsc{#6}} \environmentrelatetext~\emph{#5} (#7) \hfill \textbf{#8}%
-        } \\*
-          & \raisebox{0.5em}{\begin{minipage}[t]{\dimexpr\textwidth-5em}\color{black}#9\end{minipage}}
+            \color{shadecolor}%
+            \quad\mbox{\textbf{#8}}%
+        }\\*
+          & \raisebox{0.5em}{\begin{minipage}[t]{\dimexpr\textwidth-5em}\color{black}#9\end{minipage}} & &
     \end{tblr}
     \addcontentsline{toc}{subsection}{#1—#3: #6 \environmentrelatetext~#5}
     \bigskip
