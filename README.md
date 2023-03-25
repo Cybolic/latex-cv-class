@@ -21,3 +21,7 @@ You can also run `make watch` to automatically recompile the PDF when the YAML f
 ## Requirements
 
 This requires LuaTeX and latexmk and has been tested with TeX Live 2022.
+
+## Example
+
+To get an idea of how this looks compiled, here's [the PDF of the resume-example.yaml](./main.pdf).
