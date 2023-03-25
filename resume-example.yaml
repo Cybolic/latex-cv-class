@@ -1,0 +1,54 @@
+basics:
+  name: Francesco de Melzi
+  label: Painter extraordinaire
+  summary: >-
+    I paint real good and if you need me to collect notes into a manuscript, then you won't regret hiring me.
+    Also, I'm a pretty good cook.
+  personalSummary: >-
+    When I'm not working, I enjoy **painting**, **cooking**, and **reading**. I also like to **travel** and meet new people.
+  email: fredemel@melzi.it
+  url: https://geocities.com/~fredemel
+  phone: +39 123 456 789
+  location:
+    address: Sometimes Italy, sometimes France
+
+work:
+  - position: Professional Assistant
+    name: Chateau de Cloux
+    location: France
+    startDate: 1516-04-19
+    endDate: 1519-10-11
+    text: >-
+      Helped Leonardo da Vinci with his paintings and manuscripts.
+    highlights:
+      - Organised and managed the daily workflows and routines
+      - Managed and coached the team of assistants
+    keywords: [Painting, Writing, Collecting]
+
+  - position: Convincing and working
+    name: Leonardo da Vinci
+    location: Italy
+    startDate: 1507-01-07
+    endDate: 1516-06-22
+    text: >-
+      Worked with Leonardo da Vinci on various projects and was the main reason he extended his stay in Milan.
+    keywords: [Literature, Painting, Writing, Learning]
+
+references:
+  - name: Charles d'Amboise
+    description: Governor of Milan
+    reference: >-
+      Francesco is a great student and worker. You'd be a fool not to hire him!
+
+skills:
+  - name: Art
+    keywords:
+      - Painting
+      - Drawing
+      - Writing
+      - Literature
+  - name: Management
+    keywords:
+      - Collecting
+      - Organising
+      - Routines

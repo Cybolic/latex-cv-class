@@ -1,0 +1,36 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cyb-listings}[2023/03/23 Various list styles for my CV]
+
+\RequirePackage[inline]{enumitem}
+
+\RequirePackage{tcolorbox}
+\tcbuselibrary{xparse}
+
+\newtcbox{\tagbox}[1][]{
+    size=fbox,
+    on line,
+    arc=2pt,
+    colframe=accentcolor!20!gray!50!white,
+    colback=gray!5!white,
+    top=-1pt,bottom=-2pt,
+    before upper=\strut,
+    enlarge top by=1pt,
+    enlarge bottom by=1pt,
+    #1
+}
+
+\newlist{singleguillemetlist}{itemize}{3}
+\setlist[singleguillemetlist]{
+    label=\unskip{\guilsinglright},
+    labelsep=1.5em,
+}
+
+\newlist{dotspacedlist}{itemize*}{1}
+\setlist*[dotspacedlist]{
+    mode=unboxed,
+    label={},
+    afterlabel=,
+    itemjoin={\hspace{2pt}$\cdot$\hspace{2pt}},
+}
+
+% vim: set filetype=tex tabstop=4 softtabstop=4 shiftwidth=4 expandtab :

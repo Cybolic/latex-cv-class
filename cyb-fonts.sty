@@ -1,0 +1,24 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cyb-fonts}[2023/03/23 Set up the fonts I prefer]
+
+\RequirePackage{fontspec}
+\setmainfont{Nunito}[
+    NFSSFamily = nunito ,
+    Extension = .otf ,
+    UprightFont = *-Regular ,
+    BoldFont = *-Bold ,
+    ItalicFont = *-Italic ,
+    BoldItalicFont = *-BoldItalic ,
+]
+\setmonofont{FiraMono}[
+    NFSSFamily = firamono ,
+    Scale = MatchLowercase ,
+    Extension = .otf ,
+    UprightFont = *-Regular ,
+    BoldFont = *-Bold ,
+    ItalicFont = *-Oblique ,
+    BoldItalicFont = *-BoldOblique ,
+]
+\defaultfontfeatures{Ligatures=TeX}
+
+% vim: set filetype=tex tabstop=4 softtabstop=4 shiftwidth=4 expandtab :

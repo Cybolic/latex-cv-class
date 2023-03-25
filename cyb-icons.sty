@@ -1,0 +1,48 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cyb-icons}[2023/03/23 Icon handling for my CV]
+
+\RequirePackage[fixed]{fontawesome5}
+\RequirePackage{ifthen}
+
+\newcommand{\emailIcon}{\faEnvelope[regular]}
+\newcommand{\locationIcon}{\faMapMarker*}
+\newcommand{\infoIcon}{\faInfo}
+\newcommand{\linkedinIcon}{\faLinkedinIn}
+\newcommand{\phoneIcon}{\faPhone*}
+\newcommand{\githubIcon}{\faGithub}
+\newcommand{\gitlabIcon}{\faGitlab}
+\newcommand{\bitbucketIcon}{\faBitbucket}
+\newcommand{\sourcehutIcon}{\faIcon[regular]{circle}}
+\newcommand{\stackoverflowIcon}{\faStackOverflow}
+\newcommand{\stackexchangeIcon}{\faStackExchange}
+\newcommand{\mastodonIcon}{\faMastodon}
+\newcommand{\websiteIcon}{\faLink}
+
+%% This takes the name of the network/service as the only argument
+\newcommand* \linkIcon[1]{%
+    \ifthenelse{\equal{#1}{email}}{%
+        \emailIcon%
+    }{%
+    \ifthenelse{\equal{#1}{phone}}{%
+        \phoneIcon%
+    }{%
+    \ifthenelse{\equal{#1}{LinkedIn}}{%
+        \linkedinIcon%
+    }{%
+    \ifthenelse{\equal{#1}{GitHub}}{%
+        \githubIcon%
+    }{%
+    \ifthenelse{\equal{#1}{GitLab}}{%
+        \gitlabIcon%
+    }{%
+    \ifthenelse{\equal{#1}{Bitbucket}}{%
+        \bitbucketIcon%
+    }{%
+    \ifthenelse{\equal{#1}{sourcehut}}{%
+        \sourcehutIcon%
+    }{%
+        \websiteIcon%
+    }}}}}}}%
+}
+
+% vim: set filetype=tex tabstop=4 softtabstop=4 shiftwidth=4 expandtab :

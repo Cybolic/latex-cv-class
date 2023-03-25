@@ -1,0 +1,43 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cyb-resume}[2023/03/23 Handle YAML resume data]
+
+\RequirePackage{luacode}
+\RequirePackage{markdown}
+\RequirePackage{pgffor}
+
+\luadirect{dofile("resume.lua")}
+
+\newcommand \loadresume[1]{\luaexec{load_yaml(\luastring{#1})}}
+\newcommand* \ifhaspath[3]{\luadirect{tex.sprint(if_has_path(\luastring{#1}, \luastringN{#2}, \luastringN{#3}))}}
+\newcommand* \getbypath[1]{\luadirect{tex.sprint(get_from_path(\luastring{#1}) or "")}}
+\newcommand* \safegetbypath[1]{\luadirect{tex.print(safe_text(get_from_path(\luastring{#1})))}}
+\newcommand* \countbypath[1]{\luadirect{tex.sprint(table_count(get_from_path(\luastring{#1})))}}
+\newcommand* \datebypath[2]{\luadirect{tex.sprint(format_date(get_from_path(\luastring{#1}),\luastringO{#2}))}}
+\newcommand* \markdownbypath[1]{\luadirect{print_markdown_simple(get_from_path(\luastring{#1}))}}
+\newcommand* \fullmarkdownbypath[1]{\luadirect{print_markdown_full(get_from_path(\luastring{#1}))}}
+\newcommand* \replacetext[3]{\luadirect{local ret = string.gsub(\luastring{#1},\luastring{#2},\luastring{#3}); tex.print(ret)}}
+
+\newcommand \eachbypath[2]{%
+    \providecommand{\get}[1]{##1}%
+    \providecommand{\getdate}[2]{##1##2}%
+    \providecommand{\getmarkdown}[1]{##1}%
+    \providecommand{\current}{}%
+    \providecommand{\each}[2]{##1##2}%
+    \foreach \i in {1,...,\countbypath{#1}}{%
+        \renewcommand{\get}[1]{\getbypath{#1.\i.####1}}%
+        \renewcommand{\getdate}[2]{\datebypath{#1.\i.####1}{####2}}%
+        \renewcommand{\getmarkdown}[1]{\markdownbypath{#1.\i.####1}}%
+        \renewcommand{\current}{\getbypath{#1.\i}}%
+        \renewcommand{\each}[2]{%
+            \let\oldcurrent\current%
+            \foreach \o in {1,...,\countbypath{#1.\i.####1}}{%
+                \renewcommand{\current}{\getbypath{#1.\i.####1.\o}}%
+                ####2%
+            }%
+            \let\current\oldcurrent%
+        }%
+        #2%
+    }%
+}
+
+% vim: set filetype=tex tabstop=4 softtabstop=4 shiftwidth=4 expandtab :

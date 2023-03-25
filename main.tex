@@ -1,0 +1,136 @@
+\documentclass{cyb-cv}
+
+\usepackage{cyb-resume}
+\usepackage{cyb-fonts}
+\usepackage{cyb-icons}
+\usepackage{cyb-listings}
+
+\loadresume{resume-example.yaml}
+
+\title{CV - \getbypath{basics.name}}
+\author{\getbypath{basics.name}}
+\date{March 2023}
+
+\begin{document}
+
+\maketitle
+
+%% Contact links from `basics` and `profiles`
+\begingroup%
+    \hspace*{-1.25pt}%
+    \small%
+    \ifhaspath{basics.phone}{%
+        \href{
+            tel:\replacetext{%
+                \replacetext{\getbypath{basics.phone}}{ }{}%
+            }{\%+}{00}%
+        }{%
+            \linkIcon{phone}%
+            \getbypath{basics.phone}%
+        }%
+        \hfill%
+    }{}
+    \href{mailto:\getbypath{basics.email}}{%
+        \linkIcon{email}%
+        \getbypath{basics.email}%
+    }
+    \hfill%
+    \href{\getbypath{basics.url}}{%
+        \linkIcon{}%
+        \replacetext{\safegetbypath{basics.url}}{https?://}{}%
+    }%
+    \ifhaspath{basics.profiles}{%
+        \eachbypath{basics.profiles}{%
+            \hfill%
+            \href{\get{url}}{%
+                \linkIcon{\get{network}}%
+                \get{network}%
+            }%
+        }%
+    }{}%
+\endgroup
+\medskip
+
+\section{About}
+\fullmarkdownbypath{basics.summary}
+\medskip
+
+\section{Experience}
+\smallskip
+\eachbypath{work}{%
+    \edef\startYear{\getdate{startDate}{\%Y}}%
+    \edef\endYear{\getdate{endDate}{\%Y}}%
+    \filbreak%
+    \subsection[\startYear—\endYear: \get{position} at \get{name}]{%
+        \normalsize\textbf{\get{position}}\separator%
+        \ifhaspath{work.\i.url}{%
+            \href{\get{url}}{\get{name}}
+        }{%
+            \color{gray}{\get{name}}
+        }
+        \hfill
+        \begin{small}%
+            \graycolor%
+            \get{location}
+            \textls[0]{\startYear -- \endYear}%
+        \end{small}%
+    }
+
+    \get{text}
+
+    \small%
+    \ifhaspath{work.\i.highlights}{%
+        \begin{singleguillemetlist}
+            \each{highlights}{ \item \current }
+        \end{singleguillemetlist}
+    }{%
+        \vskip 0.5em
+    }
+    \ifhaspath{work.\i.keywords}{%
+        \topicbox{7em}{Technologies:}{%
+            \begin{dotspacedlist}%
+                \each{keywords}{ \item \mbox{\textcolor{graycolor}\current} }
+            \end{dotspacedlist}
+        }
+    }{}
+}
+
+\section{References}
+\begin{small}
+    \eachbypath{references}{%
+        \quotedtext{%
+            \getmarkdown{reference}
+        }
+        \vspace{-0.5em}\begin{flushright}\textemdash~\textbf{%
+            \get{name}
+        } \textendash~{%
+            \get{description}%
+        }\end{flushright}
+    }%
+\end{small}
+
+\ifhaspath{skills}{%
+    \section{Skills}
+    \begin{footnotesize}
+        \eachbypath{skills}{%
+            \topicbox{7em}{%
+                \get{name}
+            }{%
+                \each{keywords}{\tagbox{\current} }
+            }
+            \vskip 0.5em
+        }
+    \end{footnotesize}
+    \vskip 1em
+}{}
+
+\ifhaspath{basics.personalSummary}{%
+    \section{Personal Life}
+    \begin{boldiscolor}[accentcolor]%
+        \markdownbypath{basics.personalSummary}%
+    \end{boldiscolor}
+}{}
+
+\end{document}
+
+% vim: set filetype=tex tabstop=4 softtabstop=4 shiftwidth=4 expandtab :
