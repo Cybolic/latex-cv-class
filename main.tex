@@ -41,10 +41,19 @@
     }%
     \ifhaspath{basics.profiles}{%
         \eachbypath{basics.profiles}{%
+            \ifhaspath{basics.profiles.\i.url}{%
+                \hfill%
+                \href{\get{url}}{%
+                    \linkIcon{\get{network}}%
+                    \get{network}%
+                }
+            }{}%
+        }\linebreak[2]
+        \eachbypath{basics.profiles}{%
             \hfill%
-            \href{\get{url}}{%
+            \ifhaspath{basics.profiles.\i.url}{}{%
                 \linkIcon{\get{network}}%
-                \get{network}%
+                \get{username}
             }%
         }%
     }{}%
