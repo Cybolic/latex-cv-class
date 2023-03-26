@@ -18,7 +18,7 @@ work:
     location: France
     startDate: 1516-04-19
     endDate: 1519-10-11
-    text: >-
+    summary: >-
       Helped Leonardo da Vinci with his paintings and manuscripts.
     highlights:
       - Organised and managed the daily workflows and routines
@@ -30,7 +30,7 @@ work:
     location: Italy
     startDate: 1507-01-07
     endDate: 1516-06-22
-    text: >-
+    summary: >-
       Worked with Leonardo da Vinci on various projects and was the main reason he extended his stay in Milan.
     keywords: [Literature, Painting, Writing, Learning]
 
