@@ -22,7 +22,7 @@
     \ifhaspath{basics.phone}{%
         \href{
             tel:\replacetext{%
-                \replacetext{\getbypath{basics.phone}}{ }{}%
+                \replacetext{\getbypath{basics.phone}}{[ -]}{}%
             }{\%+}{00}%
         }{%
             \linkIcon{phone}%
