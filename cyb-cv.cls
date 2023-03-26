@@ -85,18 +85,6 @@
     \textcolor{gray!40!white}{\hspace{.5em}\textbar\hspace{.5em}}%
 }
 
-%% A horizontal split box where the left cell (#2) is #1 wide and the right cell (#3) takes the remainder of the page width
-%% The right cell is always footnotesize
-\newcommand\topicbox[3]{%
-    \noindent%
-    \begin{minipage}[t]{#1}%
-        #2%
-    \end{minipage}%
-    \begin{minipage}[t]{\dimexpr(\linewidth-#1)}\begin{footnotesize}\begin{raggedright}%
-        #3%
-    \end{raggedright}\end{footnotesize}\end{minipage}%
-}
-
 \newenvironment{boldiscolor}[1][accentcolor]{%
     \renewcommand{\textbf}[1]{\textcolor{#1}{##1}}%
 }
@@ -163,11 +151,10 @@
 \newcommand\keywords[3][Technologies]{%
     \ifhaspath{#2.#3}{%
         \small
-        \topicbox{7em}{#1:}{%
-            \begin{dotspacedlist}%
-                \each{#3}{ \item\mbox{\textcolor{graycolor}\current}}
-            \end{dotspacedlist}
-        }
+        \eqparbox{keywordsname}{#1:}
+        \begin{dotspacedlist}%
+            \each{#3}{ \item\mbox{\footnotesize\textcolor{graycolor}\current}}
+        \end{dotspacedlist}
     }{}
 }
 
