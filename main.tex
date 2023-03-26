@@ -67,42 +67,61 @@
 \section{Experience}
 \smallskip
 \eachbypath{work}{%
-    \edef\startYear{\getdate{startDate}{\%Y}}%
-    \edef\endYear{\getdate{endDate}{\%Y}}%
-    \filbreak%
-    \subsection[\startYear—\endYear: \get{position} at \get{name}]{%
-        \normalsize\textbf{\get{position}}\separator%
-        \ifhaspath{work.\i.url}{%
-            \href{\get{url}}{\get{name}}
-        }{%
-            \color{gray}{\get{name}}
-        }
-        \hfill
-        \begin{small}%
-            \graycolor%
-            \get{location}
-            \textls[0]{\startYear -- \endYear}%
-        \end{small}%
+    \sectionwithdatestitleandplace{work.\i}{\get{position}}{\get{name}}{%
+        \highlights{work.\i}{highlights}
+        \keywords{work.\i}{keywords}
     }
-
-    \get{text}
-
-    \small%
-    \ifhaspath{work.\i.highlights}{%
-        \begin{singleguillemetlist}
-            \each{highlights}{ \item \current }
-        \end{singleguillemetlist}
-    }{%
-        \vskip 0.5em
-    }
-    \ifhaspath{work.\i.keywords}{%
-        \topicbox{7em}{Technologies:}{%
-            \begin{dotspacedlist}%
-                \each{keywords}{ \item \mbox{\textcolor{graycolor}\current} }
-            \end{dotspacedlist}
-        }
-    }{}
 }
+
+\ifhaspath{projects}{%
+    \section{Projects}
+    \smallskip
+    \eachbypath{projects}{%
+        \sectionwithdatestitleandplace{projects.\i}{\get{name}}{\get{entity}}{%
+            \highlights{projects.\i}{highlights}
+            \keywords{projects.\i}{keywords}
+            \keywords[Roles]{projects.\i}{roles}
+        }
+    }
+}{}
+
+\ifhaspath{volunteer}{%
+    \section{Volunteering}
+    \smallskip
+    \eachbypath{volunteer}{%
+        \sectionwithdatestitleandplace{volunteer.\i}{\get{position}}{\get{organization}}{%
+            \highlights{volunteer.\i}{highlights}
+            \keywords{volunteer.\i}{keywords}
+        }
+    }
+}{}
+
+\ifhaspath{awards}{%
+    \section{Awards}
+    \smallskip
+    \eachbypath{awards}{%
+        \sectionwithdatestitleandplace{awards.\i}{\get{title}}{\get{awarder}}{}
+    }
+}{}
+
+\ifhaspath{publications}{%
+    \section{Publications}
+    \smallskip
+    \eachbypath{publications}{%
+        \sectionwithdatestitleandplace{publications.\i}{\get{name}}{\get{publisher}}{}
+    }
+}{}
+
+\ifhaspath{education}{%
+    \section{Education}
+    \smallskip
+    \eachbypath{education}{%
+        \sectionwithdatestitleandplace{education.\i}{\get{studyType} in \get{area}}{\get{institution}}{%
+            Final score: \get{score}
+            \highlights{education.\i}{courses}
+        }
+    }
+}{}
 
 \section{References}
 \begin{small}

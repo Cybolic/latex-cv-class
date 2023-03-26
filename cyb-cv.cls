@@ -106,6 +106,70 @@
     \begin{#1}{\textquotedblright}\end{#1}%
 }
 
+\newcommand\sectionwithdatestitleandplace[4]{%
+    \edef\startYear{\getdate{startDate}{\%Y}}%
+    \edef\endYear{\getdate{endDate}{\%Y}}%
+    \edef\title{#2}%
+    \edef\place{#3}%
+    %
+    \filbreak%
+    \subsection[\startYear—\endYear: \title at \place]{%
+        \normalsize\textbf{\title}\separator%
+        \ifhaspath{#1.url}{%
+            \href{\get{url}}{\place}
+        }{%
+            \color{gray}{\place}
+        }
+        \hfill
+        \begin{small}%
+            \graycolor%
+            \get{location}
+            \textls[0]{%
+                \ifhaspath{#1.startDate}{%
+                    \ifhaspath{#1.endDate}{%
+                        \startYear -- \endYear%
+                    }{%
+                        \startYear%
+                    }%
+                }{%
+                    \ifhaspath{#1.date}{%
+                        \get{date}%
+                    }{%
+                        \ifhaspath{#1.releaseDate}{%
+                            \get{releaseDate}%
+                        }{}%
+                    }%
+                }%
+            }%
+        \end{small}%
+    }
+
+    \get{summary}
+
+    #4
+}
+
+\newcommand\highlights[2]{%
+    \ifhaspath{#1.#2}{%
+        \small
+        \begin{singleguillemetlist}
+            \each{#2}{ \item \current }
+        \end{singleguillemetlist}
+    }{%
+        \vskip 0.5em
+    }
+}
+\newcommand\keywords[3][Technologies]{%
+    \ifhaspath{#2.#3}{%
+        \small
+        \topicbox{7em}{#1:}{%
+            \begin{dotspacedlist}%
+                \each{#3}{ \item\mbox{\textcolor{graycolor}\current}}
+            \end{dotspacedlist}
+        }
+    }{}
+}
+
 \RequirePackage{microtype}
 
 % vim: set filetype=tex tabstop=4 softtabstop=4 shiftwidth=4 expandtab :
