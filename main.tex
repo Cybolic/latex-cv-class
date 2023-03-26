@@ -139,16 +139,25 @@
 
 \ifhaspath{skills}{%
     \section{Skills}
-    \begin{footnotesize}
-        \eachbypath{skills}{%
-            \topicbox{7em}{%
-                \get{name}
-            }{%
-                \each{keywords}{\tagbox{\current} }
-            }
-            \vskip 0.5em
+    \eachbypath{skills}{%
+        \eqparbox{taglistname}{%
+            \footnotesize\get{name}\hspace{.5em}
         }
-    \end{footnotesize}
+        \each{keywords}{\footnotesize\tagbox{\current} }%
+        \\
+    }
+    \vskip 1em
+}{}
+
+\ifhaspath{interests}{%
+    \section{Interests}
+    \eachbypath{interests}{%
+        \eqparbox{taglistname}{%
+            \footnotesize\get{name}~
+        }
+        \each{keywords}{\footnotesize\tagbox{\current} }%
+        \\
+    }
     \vskip 1em
 }{}
 

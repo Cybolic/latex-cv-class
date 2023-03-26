@@ -33,6 +33,7 @@
 ]{geometry}
 
 \setlength{\parindent}{0pt}
+\RequirePackage{eqparbox}
 
 
 %% Titles and Typography
