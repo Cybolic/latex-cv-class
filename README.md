@@ -12,8 +12,8 @@ Also, it's using YAML instead of JSON as I find it a much better match when hand
 A few things are handled automatically:
 
   - `url` properties are automatically applied to the relevant company, organisation, entity, etc.
-  - `phone` `email` and `profiles` urls are automatically given icons and processed to be compatible with their URI schema (e.g. `+1 (912) 555-4321` becomes `tel:0019125554321`)
-  - Uneccessary prefixes, like `https?` are removed visually and links are listed before usernames in `profiles`
+  - `phone` `email` and `profiles` urls are automatically given icons and their links processed to be compatible with the URI schema (e.g. `+1 (912) 555-4321` becomes `tel:0019125554321`)
+  - Uneccessary prefixes, like `https?://` are removed visually and links are listed before usernames in `profiles`
 
 ## To get started
 
