@@ -148,11 +148,11 @@
 \ifhaspath{skills}{%
     \section{Skills}
     \eachbypath{skills}{%
-        \eqparbox{taglistname}{%
+        \splitbox[taglistname]{%
             \footnotesize\get{name}\hspace{.5em}
+        }{%
+            \each{keywords}{\footnotesize\tagbox{\current} }%
         }
-        \each{keywords}{\footnotesize\tagbox{\current} }%
-        \\
     }
     \vskip 1em
 }{}
@@ -160,11 +160,11 @@
 \ifhaspath{interests}{%
     \section{Interests}
     \eachbypath{interests}{%
-        \eqparbox{taglistname}{%
+        \splitbox[taglistname]{%
             \footnotesize\get{name}~
+        }{%
+            \each{keywords}{\footnotesize\tagbox{\current} }%
         }
-        \each{keywords}{\footnotesize\tagbox{\current} }%
-        \\
     }
     \vskip 1em
 }{}

@@ -89,6 +89,11 @@
     \renewcommand{\textbf}[1]{\textcolor{#1}{##1}}%
 }
 
+\newcommand\splitbox[3][splitbox]{%
+    \eqparbox{#1}{#2}
+    \begin{minipage}[t]{\dimexpr\linewidth-\eqboxwidth{#1}-4pt}{#3}\end{minipage}
+}
+
 \newcommand\quotedtext[2][normalsize]{%
     \begin{#1}{\textquotedblleft}\end{#1}%
         \textit{#2}%
@@ -151,10 +156,11 @@
 \newcommand\keywords[3][Technologies]{%
     \ifhaspath{#2.#3}{%
         \small
-        \eqparbox{keywordsname}{#1:}
-        \begin{dotspacedlist}%
-            \each{#3}{ \item\mbox{\footnotesize\textcolor{graycolor}\current}}
-        \end{dotspacedlist}
+        \splitbox[keywordsname]{#1:~~}{%
+            \begin{dotspacedlist}%
+                \each{#3}{ \item\mbox{\footnotesize\textcolor{graycolor}\current}}
+            \end{dotspacedlist}
+        }
     }{}
 }
 
