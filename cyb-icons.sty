@@ -15,7 +15,9 @@
 \newcommand{\sourcehutIcon}{\faIcon[regular]{circle}}
 \newcommand{\stackoverflowIcon}{\faStackOverflow}
 \newcommand{\stackexchangeIcon}{\faStackExchange}
+\newcommand{\soundcloudIcon}{\faSoundcloud}
 \newcommand{\mastodonIcon}{\faMastodon}
+\newcommand{\twitterIcon}{\faTwitter}
 \newcommand{\websiteIcon}{\faLink}
 
 %% This takes the name of the network/service as the only argument
@@ -41,8 +43,17 @@
     \ifthenelse{\equal{#1}{sourcehut}}{%
         \sourcehutIcon%
     }{%
+    \ifthenelse{\equal{#1}{Mastodon}}{%
+        \mastodonIcon%
+    }{%
+    \ifthenelse{\equal{#1}{Twitter}}{%
+        \twitterIcon%
+    }{%
+    \ifthenelse{\equal{#1}{SoundCloud}}{%
+        \soundcloudIcon%
+    }{%
         \websiteIcon%
-    }}}}}}}%
+    }}}}}}}}}}%
 }
 
 % vim: set filetype=tex tabstop=4 softtabstop=4 shiftwidth=4 expandtab :
