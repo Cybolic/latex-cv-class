@@ -22,7 +22,7 @@
     \ifhaspath{basics.phone}{%
         \href{
             tel:\replacetext{%
-                \replacetext{\getbypath{basics.phone}}{[ -]}{}%
+                \replacetext{\getbypath{basics.phone}}{[ ()-]}{}%
             }{\%+}{00}%
         }{%
             \linkIcon{phone}%
@@ -109,6 +109,14 @@
     \smallskip
     \eachbypath{publications}{%
         \sectionwithdatestitleandplace{publications.\i}{\get{name}}{\get{publisher}}{}
+    }
+}{}
+
+\ifhaspath{certificates}{%
+    \section{Certificates}
+    \smallskip
+    \eachbypath{certificates}{%
+        \sectionwithdatestitleandplace{certificates.\i}{\get{name}}{\get{issuer}}{\vskip 0.5em}
     }
 }{}
 

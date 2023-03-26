@@ -7,9 +7,13 @@ This is largely compatible with the [JSON-Resume](https://github.com/jsonresume/
   - `personalSummary` in `basics` section. This is shown as "Personal Life" at the end of the CV if present
   - `description` in the `references` section. This is to show the title or other description of the person providing the reference
 
-The following sections are not used: `volunteer`, `education`, `awards`, `certificates`, `publications`, `languages` and `interests`.
-
 Also, it's using YAML instead of JSON as I find it a much better match when handling text.
+
+A few things are handled automatically:
+
+  - `url` properties are automatically applied to the relevant company, organisation, entity, etc.
+  - `phone` `email` and `profiles` urls are automatically given icons and processed to be compatible with their URI schema (e.g. `+1 (912) 555-4321` becomes `tel:0019125554321`)
+  - Uneccessary prefixes, like `https?` are removed visually and links are listed before usernames in `profiles`
 
 ## To get started
 
