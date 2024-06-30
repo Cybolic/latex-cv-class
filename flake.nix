@@ -58,7 +58,7 @@
       }));
 
       inputResume = "resume.yaml";
-      inputFilename = "main.tex";
+      inputFilename = ./main.tex;
       outputFilename = "cv.pdf";
       # pkgs = nixpkgs.legacyPackages.${system};
       tex = pkgs.texlive.combine {
@@ -98,7 +98,8 @@
             ''OUTPUT_PDF="${outputPdf}"''
           else "" }
           ${texSetupEnv}
-          sed "s/resume-example.yaml/$INPUT_YAML/g" "$INPUT_TEX" > "$DIR/input.tex"
+          echo -e "Compiling pdf from:\n\tyaml: $INPUT_YAML\n\ttex: $INPUT_TEX"
+          sed "s|resume-example.yaml|$INPUT_YAML|g" "$INPUT_TEX" > "$DIR/input.tex"
           ${texEnv} \
             latexmk -interaction=nonstopmode -pdf -lualatex \
             -output-directory="$DIR" \
@@ -111,7 +112,7 @@
                 -e "@default_files = ('$DIR/input.tex');" \
                 -e "set_tex_cmds( '--interaction=batchmode %O %S' );" \
                 -pvc -time \
-                <(cat "$INPUT_TEX" | sed "s/resume-example.yaml/${INPUT_YAML}/g")
+                <(cat "$INPUT_TEX" | sed "s|resume-example.yaml|${INPUT_YAML}|g")
               '')
             }
           ${ if copyOutput then
@@ -126,7 +127,7 @@
         outputPdf = "$3";
       };
       cvBaseDerivationScript = commandName: /* bash */ ''
-        INPUT_RESUME="''${1:-"${inputYaml}"}"
+        INPUT_RESUME="''${1:-"${inputResume}"}"
         INPUT_TEX="''${2:-"${inputFilename}"}"
         OUTPUT_PDF="''${3:-"${outputFilename}"}"
         ${commandName} "$INPUT_RESUME" "$INPUT_TEX" "$OUTPUT_PDF"
@@ -165,17 +166,18 @@
       };
       packages = {
         lint = pkgs.writeShellApplication {
-          name = "lint";
+          name = "lintYaml";
           runtimeInputs = [ pkgs.gnused pkgs.yq valeLint ];
             # vale --output=JSON <(yq '${pkgs.lib.strings.concatStringsSep " | " [
           text = /* bash */ ''
+            INPUT_RESUME="''${1:-"resume.yaml"}"
             exec \
               vale <(yq '${pkgs.lib.strings.concatStringsSep " | " [
                 ''{basics, work, projects}''
                 ''with_entries(select(.value != null))''
                 ''del(..  | .url?, .email?, .username?, .keywords?)''
                 ''del( .basics.profiles )''
-              ]}' resume.yaml | sed "s/\bol’ /old /g")
+              ]}' "$INPUT_RESUME" | sed "s/\bol’ /old /g")
           '';
         };
 
@@ -200,25 +202,26 @@
 
         preview = cvPreviewer;
 
-        yamlToPdf = { src, inputYaml }:
-          pkgs.stdenvNoCC.mkDerivation rec {
+        yamlToPdf = { inputYaml }:
+          pkgs.stdenvNoCC.mkDerivation (let
+            buildInputs = [ pkgs.coreutils cvBuilder ];
+          in {
             name = "yaml-to-pdf";
-            inherit src;
+            src = self;
+            inherit buildInputs;
 
-            buildInputs = [ pkgs.coreutils (
-              latexmkCmd { name = "latex-cv-build"; copyOutput = true; }
-            ) ];
+            phases = ["unpackPhase" "buildPhase" "installPhase"];
 
             buildPhase = ''
               export PATH="${pkgs.lib.makeBinPath buildInputs}";
               mkdir -p $out
-              latex-cv-build ${src}/${inputYaml} ${inputFilename} cv.pdf
+              latex-cv-build "${inputYaml}" "${inputFilename}" cv.pdf
             '';
 
             installPhase = ''
               cp cv.pdf $out/
             '';
-          };
+          });
       };
       defaultPackage = packages.document;
     });
